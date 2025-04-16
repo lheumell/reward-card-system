@@ -29,5 +29,9 @@ export default function BarCode({ value }: BarcodeProps) {
     }
   }, [value]);
 
-  return <svg ref={barcodeRef} />;
+  return (
+    <div className="flex justify-center items-center border-2 border-gray-100 p-2 rounded-lg">
+      <svg className="rounded-md" ref={barcodeRef} />
+    </div>
+  );
 }

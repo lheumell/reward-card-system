@@ -4,7 +4,6 @@ import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { SmtpMessage } from "../smtp-message";
 import { FacebookLoginButton } from "./facebook-login-button";
 
 export default async function Signup(props: {
@@ -22,34 +21,42 @@ export default async function Signup(props: {
   return (
     <>
       <form className="flex flex-col min-w-64 max-w-64 mx-auto">
-        <h1 className="text-2xl font-medium">Sign up</h1>
+        <h1 className="text-2xl font-medium">S'inscrire</h1>
         <p className="text-sm text text-foreground">
-          Already have an account?{" "}
+          Vous avez déjà un compte ?{" "}
           <Link className="text-primary font-medium underline" href="/sign-in">
-            Sign in
+            Se connecter
           </Link>
         </p>
-        <p className="text-sm text text-foreground">
-          AuthO Facebook? <FacebookLoginButton />
-        </p>
+
         <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+          <FacebookLoginButton />
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t"></span>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                OU CONTINUEZ AVEC
+              </span>
+            </div>
+          </div>
           <Label htmlFor="email">Email</Label>
-          <Input name="email" placeholder="you@example.com" required />
-          <Label htmlFor="password">Password</Label>
+          <Input name="email" placeholder="ch'camion@exemple.com" required />
+          <Label htmlFor="password">Mot de passe</Label>
           <Input
             type="password"
             name="password"
-            placeholder="Your password"
+            placeholder="Votre mot de passe"
             minLength={6}
             required
           />
-          <SubmitButton formAction={signUpAction} pendingText="Signing up...">
-            Sign up
+          <SubmitButton formAction={signUpAction} pendingText="Inscription...">
+            S'inscrire
           </SubmitButton>
           <FormMessage message={searchParams} />
         </div>
       </form>
-      <SmtpMessage />
     </>
   );
 }

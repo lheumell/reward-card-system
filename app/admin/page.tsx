@@ -3,6 +3,8 @@
 import { Html5Qrcode } from "html5-qrcode";
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
+import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function AdminPage() {
   const supabase = createClient();
@@ -12,6 +14,19 @@ export default function AdminPage() {
   const [loyaltyId, setLoyaltyId] = useState<string | null>(null);
   const [profile, setProfile] = useState<any>(null);
   const [pointsToAdd, setPointsToAdd] = useState(0);
+
+  useEffect(() => {
+    const canVisitPage = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return redirect("/sign-in");
+      }
+    };
+    canVisitPage();
+  }, []);
 
   // 🎥 Démarre le scanner une seule fois
   useEffect(() => {
@@ -78,7 +93,6 @@ export default function AdminPage() {
       .eq("id", profile.id);
 
     if (!error) {
-      alert(`✅ ${pointsToAdd} point(s) ajouté(s) à ${profile.firstname}`);
       setProfile(null);
       setPointsToAdd(0);
       setLoyaltyId(null);
@@ -86,7 +100,7 @@ export default function AdminPage() {
       // Redémarre le scan
       html5QrCodeRef.current?.start(
         { facingMode: "environment" },
-        { fps: 10, qrbox: { width: 250, height: 250 } },
+        { fps: 10, qrbox: { width: 750, height: 750 } },
         async (decodedText) => {
           if (decodedText && decodedText !== loyaltyId) {
             setLoyaltyId(decodedText);
@@ -110,10 +124,7 @@ export default function AdminPage() {
 
       {profile && (
         <div className="bg-gray-100 p-4 rounded">
-          <p>
-            <strong>Nom :</strong> {profile.firstname} {profile.lastname}
-          </p>
-          <p>
+          <p className="text-black">
             <strong>Points actuels :</strong> {profile.fidelity_points || 0}
           </p>
 
@@ -125,12 +136,9 @@ export default function AdminPage() {
               onChange={(e) => setPointsToAdd(parseInt(e.target.value))}
               className="border p-2 rounded w-full"
             />
-            <button
-              onClick={handleAddPoints}
-              className="bg-green-600 text-white px-4 py-2 rounded mt-2"
-            >
-              ✅ Ajouter des points
-            </button>
+            <Button onClick={handleAddPoints} variant={"outline"}>
+              Ajouter
+            </Button>
           </div>
         </div>
       )}

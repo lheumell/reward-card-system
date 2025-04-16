@@ -4,38 +4,50 @@ import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { FacebookLoginButton } from "../sign-up/facebook-login-button";
 
 export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
   return (
     <form className="flex-1 flex flex-col min-w-64">
-      <h1 className="text-2xl font-medium">Sign in</h1>
+      <h1 className="text-2xl font-medium">Se connecter</h1>
       <p className="text-sm text-foreground">
-        Don't have an account?{" "}
+        Vous n'avez pas de compte ?{" "}
         <Link className="text-foreground font-medium underline" href="/sign-up">
-          Sign up
+          S'inscrire
         </Link>
       </p>
       <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+        <FacebookLoginButton />
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t"></span>
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">
+              OU CONTINUEZ AVEC
+            </span>
+          </div>
+        </div>
         <Label htmlFor="email">Email</Label>
-        <Input name="email" placeholder="you@example.com" required />
+        <Input name="email" placeholder="ch'camion@exemple.com" required />
         <div className="flex justify-between items-center">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">Mot de passe</Label>
           <Link
             className="text-xs text-foreground underline"
             href="/forgot-password"
           >
-            Forgot Password?
+            Mot de passe oublié ?
           </Link>
         </div>
         <Input
           type="password"
           name="password"
-          placeholder="Your password"
+          placeholder="Votre mot de passe"
           required
         />
-        <SubmitButton pendingText="Signing In..." formAction={signInAction}>
-          Sign in
+        <SubmitButton pendingText="Connexion..." formAction={signInAction}>
+          Se connecter
         </SubmitButton>
         <FormMessage message={searchParams} />
       </div>
