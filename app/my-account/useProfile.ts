@@ -7,7 +7,7 @@ type TProfile = {
   id: string;
   loyalty_id: string;
   user_id: string;
-  points: number;
+  fidelity_points: number;
 };
 
 export function useProfile() {
@@ -26,7 +26,7 @@ export function useProfile() {
       const { data } = await supabase
         .from("profiles")
         .select("*")
-        .eq("user_id", user.id)
+        .eq("id", user.id)
         .single();
 
       if (data) {

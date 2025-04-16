@@ -36,12 +36,6 @@ export const signUpAction = async (formData: FormData) => {
     console.error(error.code + " " + error.message);
     return encodedRedirect("error", "/sign-up", error.message);
   } else {
-    const loyaltyId =
-      "FID-" + Math.random().toString(36).substring(2, 8).toUpperCase();
-    await supabase.from("profiles").insert({
-      user_id: user?.id,
-      loyalty_id: loyaltyId,
-    });
     return encodedRedirect(
       "success",
       "/sign-up",

@@ -70,11 +70,11 @@ export default function AdminPage() {
   const handleAddPoints = async () => {
     if (!profile) return;
 
-    const newPoints = (profile.points || 0) + pointsToAdd;
+    const newPoints = (profile.fidelity_points || 0) + pointsToAdd;
 
     const { error } = await supabase
       .from("profiles")
-      .update({ points: newPoints })
+      .update({ fidelity_points: newPoints })
       .eq("id", profile.id);
 
     if (!error) {
@@ -114,7 +114,7 @@ export default function AdminPage() {
             <strong>Nom :</strong> {profile.firstname} {profile.lastname}
           </p>
           <p>
-            <strong>Points actuels :</strong> {profile.points || 0}
+            <strong>Points actuels :</strong> {profile.fidelity_points || 0}
           </p>
 
           <div className="mt-4">
