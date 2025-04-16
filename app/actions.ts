@@ -31,7 +31,7 @@ export const signUpAction = async (formData: FormData) => {
     email,
     password,
     options: {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_REDIRECT_URL}/auth/callback`,
+      emailRedirectTo: `${origin}/auth/callback`,
     },
   });
 
