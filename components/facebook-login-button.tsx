@@ -25,7 +25,7 @@ export function FacebookLoginButton() {
     <button
       type="button"
       onClick={handleLoginWithFB}
-      className="flex items-center gap-2 justify-center p-4 bg-slate-900 rounded-md bg-text-primary font-medium"
+      className="flex items-center gap-2 justify-center p-4 bg-white dark:bg-slate-900 rounded-md bg-text-primary font-medium border border-slate-900"
     >
       <svg
         className="size-6"
