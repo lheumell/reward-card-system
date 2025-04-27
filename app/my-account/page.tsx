@@ -9,6 +9,7 @@ import Image from "next/image";
 import close from "@/assets/close.svg";
 import popcorn from "@/assets/popcorn.png";
 import Panel from "@/components/ui/Panel";
+import Caroussel from "@/components/ui/caroussel";
 
 export default function MyAccount() {
   const [isOpen, setOpen] = useState(false);
@@ -70,10 +71,10 @@ export default function MyAccount() {
 
   return (
     <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Mon compte</h1>
+      <h1 className="text-xl font-bold mb-4">Mes points</h1>
       {!isOpen && profile && (
         <div className="md:w-3/4 m-auto">
-          <div className="bg-white p-4 rounded-xl mb-4 shadow-lg md:w-3/4">
+          <div className="bg-white p-4 rounded-xl mb-4 md:w-3/4">
             <div className="my-4">
               points de fidelité :{" "}
               <span className="font-bold">{profile.fidelity_points}</span>
@@ -104,12 +105,16 @@ export default function MyAccount() {
               ))}
             </div>
           </div>
+          <h1 className="text-xl font-bold mt-8 mb-4">Ma carte</h1>
+
           <Barcode
             value={profile.loyalty_id}
             handleOpenPanel={() => setOpenPanel(true)}
-            width={0}
-            height={0}
+            width={2}
+            height={75}
           />
+          <h1 className="text-xl font-bold mt-8 mb-4">Nos offres</h1>
+          <Caroussel />
           <Panel isOpen={isOpenPanel} onClose={() => setOpenPanel(false)}>
             <Barcode value={profile.loyalty_id} width={2} height={150} />
           </Panel>
