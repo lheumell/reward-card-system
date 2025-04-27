@@ -4,9 +4,17 @@ import JsBarcode from "jsbarcode";
 
 type BarcodeProps = {
   value: string;
+  handleOpenPanel?: () => void;
+  width: number;
+  height: number;
 };
 
-export default function BarCode({ value }: BarcodeProps) {
+export default function BarCode({
+  value,
+  handleOpenPanel,
+  width,
+  height,
+}: BarcodeProps) {
   const barcodeRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -20,8 +28,8 @@ export default function BarCode({ value }: BarcodeProps) {
         format: "CODE128",
         lineColor: "#000000",
         background: "#ffffff",
-        width: 4,
-        height: 200,
+        width,
+        height,
         displayValue: true,
       });
     } catch (error) {
@@ -30,7 +38,10 @@ export default function BarCode({ value }: BarcodeProps) {
   }, [value]);
 
   return (
-    <div className="flex justify-center items-center border-2 border-gray-100 p-2 rounded-xl bg-white shadow-lg">
+    <div
+      onClick={handleOpenPanel}
+      className="flex justify-center items-center px-2 rounded-xl bg-white shadow-lg"
+    >
       <svg className="rounded-md" ref={barcodeRef} />
     </div>
   );

@@ -8,9 +8,11 @@ import CallToActionFB from "@/components/call-to-action-fb";
 import Image from "next/image";
 import close from "@/assets/close.svg";
 import popcorn from "@/assets/popcorn.png";
+import Panel from "@/components/ui/Panel";
 
 export default function MyAccount() {
   const [isOpen, setOpen] = useState(false);
+  const [isOpenPanel, setOpenPanel] = useState(false);
   const [isLoading, setLoading] = useState(true);
 
   const supabase = createClient();
@@ -102,9 +104,18 @@ export default function MyAccount() {
               ))}
             </div>
           </div>
-          <Barcode value={profile.loyalty_id} />
+          <Barcode
+            value={profile.loyalty_id}
+            handleOpenPanel={() => setOpenPanel(true)}
+            width={0}
+            height={0}
+          />
+          <Panel isOpen={isOpenPanel} onClose={() => setOpenPanel(false)}>
+            <Barcode value={profile.loyalty_id} width={2} height={150} />
+          </Panel>
         </div>
       )}
+
       <CallToActionFB isOpen={isOpen} onClose={() => setOpen(false)} />
     </div>
   );
