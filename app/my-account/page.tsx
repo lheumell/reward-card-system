@@ -81,7 +81,7 @@ export default function MyAccount() {
                 <div
                   className={`inline-flex justify-center items-center italic rounded-xl border border-2 ${index + 1 === 10 ? "border-purple-200" : "border-purple-200"} w-full h-8`}
                 >
-                  {index + 1 === 10 && (
+                  {index < profile.fidelity_points && index + 1 === 10 && (
                     <Image
                       src={popcorn} // Utilisez `close.src` pour obtenir l'URL de l'image
                       alt="popcorn"
@@ -89,7 +89,7 @@ export default function MyAccount() {
                       height={24} // Hauteur de l'image
                     />
                   )}
-                  {index < profile.fidelity_points && (
+                  {index < profile.fidelity_points && index + 1 < 10 && (
                     <Image
                       src={close.src} // Utilisez `close.src` pour obtenir l'URL de l'image
                       alt="close"
