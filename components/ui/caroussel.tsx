@@ -41,7 +41,7 @@ const Caroussel: React.FC = () => {
       {cards.map((card, index) => (
         <div
           key={index}
-          className="shadow-lg rounded-lg p-4 min-w-[90%] bg-white"
+          className="shadow-lg rounded-xl p-4 min-w-[90%] bg-white"
         >
           <div className="flex items-center gap-2">
             <Image

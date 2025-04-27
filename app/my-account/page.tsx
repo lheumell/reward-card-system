@@ -67,8 +67,6 @@ export default function MyAccount() {
       </div>
     );
   }
-  console.log(close, "close");
-
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Mes points</h1>

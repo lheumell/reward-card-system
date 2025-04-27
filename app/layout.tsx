@@ -48,7 +48,7 @@ export default function RootLayout({
                 </div>
               </nav>
               <div className="w-full">
-                <div className="bg-gradient-to-r from-blue-200 via-violet-200 via-purple-200 to-teal-100 bg-[length:200%_200%] animate-gradient-x h-[calc(100vh-200px)] flex flex-col p-5 m-8 rounded-2xl ">
+                <div className="bg-gradient-to-r from-blue-200 via-violet-200 via-purple-200 to-teal-100 bg-[length:200%_200%] animate-gradient-x flex flex-col p-5 m-8 rounded-2xl ">
                   {children}
                 </div>
               </div>
