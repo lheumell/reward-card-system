@@ -10,6 +10,7 @@ import close from "@/assets/close.svg";
 import popcorn from "@/assets/popcorn.png";
 import Panel from "@/components/ui/Panel";
 import Caroussel from "@/components/ui/caroussel";
+import Loader from "@/components/ui/loader";
 
 export default function MyAccount() {
   const [isOpen, setOpen] = useState(false);
@@ -62,8 +63,8 @@ export default function MyAccount() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-full">
-        <div className="loader">En cours de chargement...</div>
+      <div className="flex justify-center items-center h-[calc(100vh-200px)]">
+        <Loader />
       </div>
     );
   }
