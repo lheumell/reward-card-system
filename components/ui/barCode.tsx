@@ -20,8 +20,8 @@ export default function BarCode({ value }: BarcodeProps) {
         format: "CODE128",
         lineColor: "#000000",
         background: "#ffffff",
-        width: 2,
-        height: 60,
+        width: 4,
+        height: 200,
         displayValue: true,
       });
     } catch (error) {
@@ -30,7 +30,7 @@ export default function BarCode({ value }: BarcodeProps) {
   }, [value]);
 
   return (
-    <div className="flex justify-center items-center border-2 border-gray-100 p-2 rounded-lg">
+    <div className="flex justify-center items-center border-2 border-gray-100 p-2 rounded-xl bg-white shadow-lg">
       <svg className="rounded-md" ref={barcodeRef} />
     </div>
   );

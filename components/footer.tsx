@@ -2,7 +2,7 @@ import { ThemeSwitcher } from "./theme-switcher";
 
 export default function Footer() {
   return (
-    <footer className="w-full mt-16 border-t border-gray-100 pt-8 sm:flex sm:items-end sm:justify-between lg:mt-24 px-8">
+    <footer className="w-full border-t border-gray-100 pt-8 sm:flex sm:items-end sm:justify-between px-8">
       <ul className="flex flex-wrap justify-center gap-4 text-xs lg:justify-end">
         <li>
           <a href="#" className="text-gray-500 transition hover:opacity-75">
