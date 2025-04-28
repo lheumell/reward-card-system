@@ -94,9 +94,9 @@ export default function Footer() {
             </svg>
           </a>
         </li>
-        <li>
+        {/* <li>
           <ThemeSwitcher />
-        </li>
+        </li> */}
       </ul>
     </footer>
   );

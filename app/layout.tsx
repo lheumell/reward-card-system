@@ -32,8 +32,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
           disableTransitionOnChange
         >
           <main className="min-h-screen flex flex-col items-center">
@@ -47,10 +46,8 @@ export default function RootLayout({
                   {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
                 </div>
               </nav>
-              <div className="w-full">
-                <div className="bg-gradient-to-r from-blue-200 via-violet-200 via-purple-200 to-teal-100 bg-[length:200%_200%] animate-gradient-x flex flex-col p-5 m-8 rounded-2xl ">
-                  {children}
-                </div>
+              <div className="w-full max-w-[900px]">
+                <div className="">{children}</div>
               </div>
               <Footer />
             </div>

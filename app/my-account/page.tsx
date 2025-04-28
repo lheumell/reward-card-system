@@ -12,6 +12,8 @@ import Panel from "@/components/ui/Panel";
 import Caroussel from "@/components/ui/caroussel";
 import Loader from "@/components/ui/loader";
 
+const NB_FIDELITY_POINTS = 10;
+
 export default function MyAccount() {
   const [isOpen, setOpen] = useState(false);
   const [isOpenPanel, setOpenPanel] = useState(false);
@@ -69,58 +71,73 @@ export default function MyAccount() {
     );
   }
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Mes points</h1>
-      {!isOpen && profile && (
-        <div className="md:w-3/4 m-auto">
-          <div className="bg-white p-4 rounded-xl mb-4 md:w-3/4">
-            <div className="my-4">
-              points de fidelité :{" "}
-              <span className="font-bold">{profile.fidelity_points}</span>
-            </div>
-            <div className="grid grid-cols-5 grid-rows-2 justify-items-center gap-2">
-              {Array.from({ length: 10 }).map((_, index) => (
-                <div
-                  className={`inline-flex justify-center items-center italic rounded-xl border border-2 ${index + 1 === 10 ? "border-purple-200" : "border-purple-200"} w-full h-8`}
-                >
-                  {index < profile.fidelity_points && index + 1 === 10 && (
-                    <Image
-                      src={popcorn} // Utilisez `close.src` pour obtenir l'URL de l'image
-                      alt="popcorn"
-                      width={24} // Largeur de l'image
-                      height={24} // Hauteur de l'image
-                    />
-                  )}
-                  {index < profile.fidelity_points && index + 1 < 10 && (
-                    <Image
-                      src={close.src} // Utilisez `close.src` pour obtenir l'URL de l'image
-                      alt="close"
-                      width={close.width} // Largeur de l'image
-                      height={close.height} // Hauteur de l'image
-                      className="w-4 h-4"
-                    />
-                  )}
+    <div className="p-4 ">
+      <div className="bg-gradient-to-r from-blue-200 via-violet-200 via-purple-200 to-teal-100 bg-[length:200%_200%] animate-gradient-x  p-5 mx-8 my-4 rounded-2xl">
+        <h1 className="text-xl font-bold mb-4">Mes points</h1>
+        {!isOpen && profile && (
+          <div className="md:w-3/4 m-auto">
+            <div className="bg-white p-4 rounded-xl mb-4 md:w-3/4">
+              {/* <div className="my-4">
+                points de fidelité :{" "}
+                <span className="font-bold">{profile.fidelity_points}</span>
+              </div> */}
+              <div className="grid grid-cols-5 grid-rows-2 justify-items-center gap-2">
+                {Array.from({ length: NB_FIDELITY_POINTS }).map((_, index) => (
+                  <div
+                    className={`inline-flex justify-center items-center italic rounded-xl border border-2 border-purple-200 w-full h-8`}
+                  >
+                    {index + 1 === NB_FIDELITY_POINTS &&
+                      profile.fidelity_points === NB_FIDELITY_POINTS && (
+                        <Image
+                          src={popcorn}
+                          alt="popcorn"
+                          width={24}
+                          height={24}
+                        />
+                      )}
+                    {index < profile.fidelity_points &&
+                      index + 1 < NB_FIDELITY_POINTS && (
+                        <Image
+                          src={close.src}
+                          alt="close"
+                          width={close.width}
+                          height={close.height}
+                          className="w-4 h-4"
+                        />
+                      )}
+                  </div>
+                ))}
+              </div>
+              {profile.fidelity_points === NB_FIDELITY_POINTS && (
+                <div className="flex items-center gap-2 mt-4 text-xs text-neutral-400">
+                  <Image src={popcorn} alt="popcorn" width={12} height={12} />
+                  <span>: 1 menu de votre choix offert</span>{" "}
                 </div>
-              ))}
+              )}
+              <span className="text-xs text-neutral-400 italic">
+                1 case par tranche de 8€ d'achat
+              </span>
             </div>
+
+            <h1 className="text-xl font-bold mt-8 mb-4">Nos offres</h1>
+            <Caroussel />
+            <Panel isOpen={isOpenPanel} onClose={() => setOpenPanel(false)}>
+              <Barcode value={profile.loyalty_id} width={2} height={150} />
+            </Panel>
           </div>
-          <h1 className="text-xl font-bold mt-8 mb-4">Ma carte</h1>
+        )}
 
-          <Barcode
-            value={profile.loyalty_id}
-            handleOpenPanel={() => setOpenPanel(true)}
-            width={2}
-            height={75}
-          />
-          <h1 className="text-xl font-bold mt-8 mb-4">Nos offres</h1>
-          <Caroussel />
-          <Panel isOpen={isOpenPanel} onClose={() => setOpenPanel(false)}>
-            <Barcode value={profile.loyalty_id} width={2} height={150} />
-          </Panel>
-        </div>
-      )}
-
-      <CallToActionFB isOpen={isOpen} onClose={() => setOpen(false)} />
+        <CallToActionFB isOpen={isOpen} onClose={() => setOpen(false)} />
+      </div>
+      <div className="px-4">
+        <h1 className="text-xl font-bold mt-8 mb-4">Ma carte</h1>
+        <Barcode
+          value={profile?.loyalty_id || "0"}
+          handleOpenPanel={() => setOpenPanel(true)}
+          width={2}
+          height={75}
+        />
+      </div>
     </div>
   );
 }

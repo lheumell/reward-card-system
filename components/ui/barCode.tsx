@@ -40,7 +40,7 @@ export default function BarCode({
   return (
     <div
       onClick={handleOpenPanel}
-      className="flex justify-center items-center px-2 rounded-xl bg-white shadow-lg"
+      className="flex justify-center items-center px-2 rounded-xl bg-white shadow-lg border border-2 border-neutral-200 w-full cursor-pointer"
     >
       <svg className="rounded-md" ref={barcodeRef} />
     </div>
