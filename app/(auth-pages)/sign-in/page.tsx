@@ -9,14 +9,8 @@ import { FacebookLoginButton } from "@/components/facebook-login-button";
 export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
   return (
-    <form className="flex-1 flex flex-col min-w-64">
+    <form className="flex-1 flex flex-col min-w-64 justify-center">
       <h1 className="text-2xl font-medium">Se connecter</h1>
-      <p className="text-sm text-foreground">
-        Vous n'avez pas de compte ?{" "}
-        <Link className="text-foreground font-medium underline" href="/sign-up">
-          S'inscrire
-        </Link>
-      </p>
       <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
         <FacebookLoginButton />
         <div className="relative">

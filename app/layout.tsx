@@ -6,6 +6,9 @@ import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import "./globals.css";
 import Footer from "@/components/footer";
+import { createClient } from "@/utils/supabase/server";
+import { useEffect, useState } from "react";
+import { User } from "@supabase/supabase-js";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -22,11 +25,21 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
+const LEO = "ca5ff451-ab18-4bb1-a13e-e2d7c11c948b";
+const WINNIE = "07b67636-8477-4e74-8421-6b426e7c5e79";
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  console.log(user, "user");
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground">
@@ -41,6 +54,9 @@ export default function RootLayout({
                 <div className="w-full flex justify-between items-center p-3 px-5 text-sm">
                   <div className="flex gap-5 items-center font-semibold">
                     <Link href={"/"}>A Ch'camion</Link>
+                    {(user?.id === LEO || user?.id === WINNIE) && (
+                      <Link href={"/admin"}>Admin</Link>
+                    )}
                     <div className="flex items-center gap-2"></div>
                   </div>
                   {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
