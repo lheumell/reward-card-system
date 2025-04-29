@@ -36,13 +36,26 @@ export default function AdminPage() {
       .eq("loyalty_id", scannedLoyaltyId)
       .single();
 
-    console.log(data, "data");
-
     if (error) {
       console.error("Utilisateur introuvable");
       setProfile(null);
     } else {
       setProfile(data);
+    }
+  };
+
+  const handleResetPoints = async () => {
+    if (!profile) return;
+
+    const { error } = await supabase
+      .from("profiles")
+      .update({ fidelity_points: 0 })
+      .eq("id", profile.id);
+
+    if (!error) {
+      setProfile(null);
+      setPointsToAdd(0);
+      setLoyaltyId(null);
     }
   };
 
@@ -57,7 +70,6 @@ export default function AdminPage() {
       .eq("id", profile.id);
 
     if (!error) {
-      alert(`✅ ${pointsToAdd} point(s) ajouté(s) à ${profile.firstname}`);
       setProfile(null);
       setPointsToAdd(0);
       setLoyaltyId(null);
@@ -65,7 +77,6 @@ export default function AdminPage() {
   };
 
   const onNewScanResult = (decodedText: any, decodedResult: any) => {
-    console.log(decodedText, decodedResult, "jclks");
     fetchProfile(decodedText);
     setLoyaltyId(decodedText);
   };
@@ -103,6 +114,12 @@ export default function AdminPage() {
               className="bg-green-600 text-white px-4 py-2 rounded mt-2"
             >
               ✅ Ajouter des points
+            </button>
+            <button
+              onClick={handleResetPoints}
+              className="bg-red-600 text-white px-4 py-2 rounded mt-2"
+            >
+              Réinitialiser les points
             </button>
           </div>
         </div>

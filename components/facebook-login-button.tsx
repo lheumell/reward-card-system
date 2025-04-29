@@ -10,7 +10,7 @@ export function FacebookLoginButton() {
       provider: "facebook",
       options: {
         redirectTo: process.env.NEXT_PUBLIC_REDIRECT_URI_FB,
-        scopes: "email pages_show_list pages_read_engagement",
+        scopes: "email",
       },
     });
 

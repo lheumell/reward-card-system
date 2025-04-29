@@ -16,8 +16,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "A ch'camion",
+  description: "Une carte de fidélité pour votre cam'tar preféré",
 };
 
 const geistSans = Geist({
@@ -39,7 +39,6 @@ export default async function RootLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
-  console.log(user, "user");
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground">

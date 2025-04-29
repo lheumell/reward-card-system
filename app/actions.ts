@@ -14,8 +14,6 @@ export const signUpAction = async (formData: FormData) => {
   const host = headersList.get("host");
   const origin = `${protocol}://${host}`;
 
-  console.log(origin, "origin");
-
   if (!email || !password) {
     return encodedRedirect(
       "error",
@@ -24,18 +22,13 @@ export const signUpAction = async (formData: FormData) => {
     );
   }
 
-  const {
-    error,
-    data: { user },
-  } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       emailRedirectTo: `${origin}/auth/callback`,
     },
   });
-
-  console.log(user, error, "jfkdsljflkdsj");
 
   if (error) {
     console.error(error.code + " " + error.message);

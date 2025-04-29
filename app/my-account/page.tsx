@@ -71,10 +71,10 @@ export default function MyAccount() {
     );
   }
   return (
-    <div className="p-4 ">
+    <div className="p-4 relative">
       <div className="bg-gradient-to-r from-blue-200 via-violet-200 via-purple-200 to-teal-100 bg-[length:200%_200%] animate-gradient-x  p-5 mx-8 my-4 rounded-2xl">
         <h1 className="text-xl font-bold mb-4">Mes points</h1>
-        {!isOpen && profile && (
+        {profile && (
           <div className="md:w-3/4 m-auto">
             <div className="bg-white p-4 rounded-xl mb-4 md:w-3/4">
               {/* <div className="my-4">
@@ -126,8 +126,6 @@ export default function MyAccount() {
             </Panel>
           </div>
         )}
-
-        <CallToActionFB isOpen={isOpen} onClose={() => setOpen(false)} />
       </div>
       <div className="px-4">
         <h1 className="text-xl font-bold mt-8 mb-4">Ma carte</h1>
@@ -138,6 +136,7 @@ export default function MyAccount() {
           height={75}
         />
       </div>
+      <CallToActionFB isOpen={isOpen} onClose={() => setOpen(false)} />
     </div>
   );
 }
