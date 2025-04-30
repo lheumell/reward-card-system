@@ -84,7 +84,7 @@ export default function MyAccount() {
               <div className="grid grid-cols-5 grid-rows-2 justify-items-center gap-2">
                 {Array.from({ length: NB_FIDELITY_POINTS }).map((_, index) => (
                   <div
-                  key={index}
+                    key={index}
                     className={`inline-flex justify-center items-center italic rounded-xl border border-2 border-purple-200 w-full h-8`}
                   >
                     {index + 1 === NB_FIDELITY_POINTS &&
