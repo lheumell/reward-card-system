@@ -15,7 +15,10 @@ export default function Footer() {
         </li>
 
         <li>
-          <a href="#" className="text-gray-500 transition hover:opacity-75">
+          <a
+            href="/privacy-policy"
+            className="text-gray-500 transition hover:opacity-75"
+          >
             {" "}
             Politique de Confidentialité{" "}
           </a>
