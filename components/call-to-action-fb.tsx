@@ -38,7 +38,7 @@ const CallToAction = ({
 
     await supabase
       .from("profiles")
-      .update({ fidelity_points: currentPoints + 10 })
+      .update({ fidelity_points: currentPoints + 1 })
       .eq("id", user.id);
 
     onClose();
