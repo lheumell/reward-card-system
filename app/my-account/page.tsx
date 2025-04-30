@@ -11,6 +11,7 @@ import popcorn from "@/assets/popcorn.png";
 import Panel from "@/components/ui/Panel";
 import Caroussel from "@/components/ui/caroussel";
 import Loader from "@/components/ui/loader";
+import { QRCodeCanvas } from "qrcode.react";
 
 const NB_FIDELITY_POINTS = 10;
 
@@ -123,18 +124,20 @@ export default function MyAccount() {
             <h1 className="text-xl font-bold mt-8 mb-4">Nos offres</h1>
             <Caroussel />
             <Panel isOpen={isOpenPanel} onClose={() => setOpenPanel(false)}>
-              <Barcode value={profile.loyalty_id} width={2} height={150} />
+              <QRCodeCanvas value={profile?.loyalty_id || "0"} size={200} />
             </Panel>
           </div>
         )}
       </div>
       <div className="px-4">
         <h1 className="text-xl font-bold mt-8 mb-4">Ma carte</h1>
+        <QRCodeCanvas value={profile?.loyalty_id || "0"} size={200} />
+
         <Barcode
           value={profile?.loyalty_id || "0"}
           handleOpenPanel={() => setOpenPanel(true)}
-          width={2}
-          height={75}
+          width={4}
+          height={60}
         />
       </div>
       <CallToActionFB isOpen={isOpen} onClose={() => setOpen(false)} />

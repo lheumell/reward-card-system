@@ -64,16 +64,17 @@ export default function AdminPage() {
 
     const newPoints = (profile.fidelity_points || 0) + pointsToAdd;
 
-    const { error } = await supabase
+    const res = await supabase
       .from("profiles")
       .update({ fidelity_points: newPoints })
       .eq("id", profile.id);
 
-    if (!error) {
+    if (!res.error) {
       setProfile(null);
       setPointsToAdd(0);
       setLoyaltyId(null);
     }
+    console.log(res);
   };
 
   const onNewScanResult = (decodedText: any, decodedResult: any) => {
