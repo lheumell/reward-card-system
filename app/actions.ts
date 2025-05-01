@@ -34,11 +34,7 @@ export const signUpAction = async (formData: FormData) => {
     console.error(error.code + " " + error.message);
     return encodedRedirect("error", "/sign-up", error.message);
   } else {
-    return encodedRedirect(
-      "success",
-      "/sign-up",
-      "Thanks for signing up! Please check your email for a verification link."
-    );
+    return encodedRedirect("success", "/email-confirmation", "");
   }
 };
 
@@ -53,7 +49,14 @@ export const signInAction = async (formData: FormData) => {
   });
 
   if (error) {
-    return encodedRedirect("error", "/sign-in", error.message);
+    const errorMessage: { [key: string]: string } = {
+      "Email not confirmed": "Confirmez votre adresse e-mail",
+    };
+    return encodedRedirect(
+      "error",
+      "/sign-in",
+      errorMessage[error.message] || error.message
+    );
   }
 
   return redirect("/my-account");
