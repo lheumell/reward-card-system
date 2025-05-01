@@ -11,7 +11,7 @@ import popcorn from "@/assets/popcorn.png";
 import Panel from "@/components/ui/Panel";
 import Caroussel from "@/components/ui/caroussel";
 import Loader from "@/components/ui/loader";
-import { QRCodeCanvas } from "qrcode.react";
+import { QRCodeSVG } from "qrcode.react";
 
 const NB_FIDELITY_POINTS = 10;
 
@@ -124,21 +124,37 @@ export default function MyAccount() {
             <h1 className="text-xl font-bold mt-8 mb-4">Nos offres</h1>
             <Caroussel />
             <Panel isOpen={isOpenPanel} onClose={() => setOpenPanel(false)}>
-              <QRCodeCanvas value={profile?.loyalty_id || "0"} size={200} />
+              <Barcode
+                value={profile?.loyalty_id || "0"}
+                handleOpenPanel={() => setOpenPanel(true)}
+                width={350}
+                height={60}
+              />
             </Panel>
           </div>
         )}
       </div>
       <div className="px-4">
         <h1 className="text-xl font-bold mt-8 mb-4">Ma carte</h1>
-        <QRCodeCanvas value={profile?.loyalty_id || "0"} size={200} />
-
-        <Barcode
+        {/* <Barcode
           value={profile?.loyalty_id || "0"}
           handleOpenPanel={() => setOpenPanel(true)}
-          width={4}
+          width={250}
           height={60}
-        />
+        /> */}
+        <div
+          onClick={() => setOpenPanel(true)}
+          className="relative bg-gradient-to-r from-violet-200 from-5% via-violet-50 via-50% to-95% to-teal-100  animate-gradient-x rounded-xl bg-green-100 shadow-xl border border-2 border-neutral-200 cursor-pointer mt-8 flex flex-col items-center p-4"
+        >
+          <QRCodeSVG
+            className="p-2 bg-white rounded-xl"
+            value={profile?.loyalty_id || "0"}
+            size={100}
+          />
+          {/* <p className="absolute bottom-2 left-[50%] -translate-x-[50%] text-sm text-neutral-900">
+            {profile?.loyalty_id || "0"}
+          </p> */}
+        </div>
       </div>
       <CallToActionFB isOpen={isOpen} onClose={() => setOpen(false)} />
     </div>

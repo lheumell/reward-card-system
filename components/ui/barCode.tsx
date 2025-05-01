@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useRef } from "react";
-import JsBarcode from "jsbarcode";
+// import { useEffect, useRef } from "react";
+// import JsBarcode from "jsbarcode";
+import { QRCodeSVG } from "qrcode.react";
 
 type BarcodeProps = {
   value: string;
@@ -15,34 +16,39 @@ export default function BarCode({
   width,
   height,
 }: BarcodeProps) {
-  const barcodeRef = useRef<SVGSVGElement | null>(null);
+  // const barcodeRef = useRef<SVGSVGElement | null>(null);
 
-  useEffect(() => {
-    if (!value || !barcodeRef.current) return;
+  // useEffect(() => {
+  //   if (!value || !barcodeRef.current) return;
 
-    try {
-      // Reset barcode before generating (important to avoid overlaps)
-      barcodeRef.current.innerHTML = "";
+  //   try {
+  //     // Reset barcode before generating (important to avoid overlaps)
+  //     barcodeRef.current.innerHTML = "";
 
-      JsBarcode(barcodeRef.current, value, {
-        format: "CODE128",
-        lineColor: "#000000",
-        background: "#ffffff",
-        width,
-        height,
-        displayValue: true,
-      });
-    } catch (error) {
-      console.error("Error generating barcode:", error);
-    }
-  }, [value]);
+  //     JsBarcode(barcodeRef.current, value, {
+  //       format: "CODE128",
+  //       lineColor: "#000000",
+  //       background: "#ffffff",
+  //       width,
+  //       height,
+  //       displayValue: true,
+  //     });
+  //   } catch (error) {
+  //     console.error("Error generating barcode:", error);
+  //   }
+  // }, [value]);
 
   return (
     <div
       onClick={handleOpenPanel}
-      className="flex justify-center items-center px-2 rounded-xl bg-white shadow-lg border border-2 border-neutral-200 w-full cursor-pointer"
+      className="flex justify-center items-center "
     >
-      <svg className="rounded-md" ref={barcodeRef} />
+      <QRCodeSVG
+        value={value}
+        className="rounded-xl bg-white shadow-xl border border-2 border-neutral-200 cursor-pointer p-4 w-fit"
+        size={width}
+        title={value}
+      />
     </div>
   );
 }
