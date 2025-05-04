@@ -66,7 +66,7 @@ export default function MyAccount() {
       }
     };
     getIsFollowFbPage();
-  }, []);
+  }, [profile]);
 
   if (isLoading) {
     return (
