@@ -12,7 +12,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
     <form className="flex-1 flex flex-col min-w-64 justify-center">
       <h1 className="text-2xl font-medium">Se connecter</h1>
       <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-        <FacebookLoginButton />
+        {/* <FacebookLoginButton />
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t"></span>
@@ -22,7 +22,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
               OU CONTINUEZ AVEC
             </span>
           </div>
-        </div>
+        </div> */}
         <Label htmlFor="email">Email</Label>
         <Input name="email" placeholder="ch'camion@exemple.com" required />
         <div className="flex justify-between items-center">

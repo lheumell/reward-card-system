@@ -1,9 +1,6 @@
 "use client";
 import Barcode from "@/components/ui/barCode";
-import { useProfile } from "./useProfile";
 import { useEffect, useState } from "react";
-import { createClient } from "@/utils/supabase/client";
-import { redirect } from "next/navigation";
 import CallToActionFB from "@/components/call-to-action-fb";
 import Image from "next/image";
 import close from "@/assets/close.svg";
@@ -12,34 +9,53 @@ import Panel from "@/components/ui/Panel";
 import Caroussel from "@/components/ui/caroussel";
 import Loader from "@/components/ui/loader";
 import { QRCodeSVG } from "qrcode.react";
+import { createClient } from "@/utils/supabase/client";
 
 const NB_FIDELITY_POINTS = 10;
+
+type TProfile = {
+  id: string;
+  loyalty_id: string;
+  user_id: string;
+  fidelity_points: number;
+  is_follow_fb_page: boolean;
+};
 
 export default function MyAccount() {
   const [isOpen, setOpen] = useState(false);
   const [isOpenPanel, setOpenPanel] = useState(false);
   const [isLoading, setLoading] = useState(true);
-
-  const supabase = createClient();
-  const profile = useProfile();
+  const [profile, setProfile] = useState<TProfile | null>(null);
 
   useEffect(() => {
-    const getIsFollowFbPage = async () => {
+    const fetchProfile = async () => {
+      const supabase = createClient();
       const {
         data: { user },
       } = await supabase.auth.getUser();
 
       if (!user) {
+        window.location.href = "/sign-in"; // Redirection côté client
         return;
       }
 
       const { data } = await supabase
         .from("profiles")
-        .select("is_follow_fb_page")
+        .select("*")
         .eq("id", user.id)
         .single();
 
-      const isFollowFbPage = data?.is_follow_fb_page ?? null;
+      setProfile(data);
+      setLoading(false);
+    };
+
+    fetchProfile();
+  }, []);
+
+  useEffect(() => {
+    const getIsFollowFbPage = async () => {
+      if (!profile) return;
+      const isFollowFbPage = profile.is_follow_fb_page ?? null;
       if (!isFollowFbPage) {
         setOpen(true);
         setLoading(false);
@@ -49,19 +65,6 @@ export default function MyAccount() {
       }
     };
     getIsFollowFbPage();
-  }, []);
-
-  useEffect(() => {
-    const canVisitPage = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user) {
-        return redirect("/sign-in");
-      }
-    };
-    canVisitPage();
   }, []);
 
   if (isLoading) {

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { ReactNode } from "react";
 import Image, { StaticImageData } from "next/image";
 import truck from "@/assets/food_truck.png";
 import cottonCandy from "@/assets/cotton_candy.png";
@@ -7,29 +7,43 @@ import contact from "@/assets/contact.png";
 
 interface CardProps {
   title: string;
-  description: string;
+  description: string | ReactNode;
   icon: StaticImageData;
 }
 
-const cards: CardProps[] = [
-  {
-    title: "Prestation à domicile",
-    description: "A ch'camion se déplace à domicile pour vos événements.",
-    icon: truck,
-  },
-  {
-    title: "Location de materiels",
-    description: "Fontainer a punch etc..",
-    icon: cottonCandy,
-  },
-  {
-    title: "Contactez nous !",
-    description: "Au 06. ou sur facebook",
-    icon: contact,
-  },
-];
-
 const Caroussel: React.FC = () => {
+  const handleRedirect = () => {
+    window.open(
+      "https://www.facebook.com/profile.php?id=61573519172124&locale=fr_FR",
+      "_blank"
+    );
+  };
+
+  const cards: CardProps[] = [
+    {
+      title: "Prestation à domicile",
+      description: "A ch'camion se déplace à domicile pour vos événements.",
+      icon: truck,
+    },
+    {
+      title: "Location de materiels",
+      description: "Fontaine à punch, mange debout et bien plus !",
+      icon: cottonCandy,
+    },
+    {
+      title: "Contactez nous !",
+      description: (
+        <>
+          Pour plus d'informations, contactez-nous sur{" "}
+          <span className="underline" onClick={handleRedirect}>
+            facebook
+          </span>
+        </>
+      ),
+      icon: contact,
+    },
+  ];
+
   return (
     <div
       style={{

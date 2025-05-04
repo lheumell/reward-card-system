@@ -3,7 +3,6 @@ import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FacebookLoginButton } from "@/components/facebook-login-button";
 
 export default async function Signup(props: {
   searchParams: Promise<Message>;
@@ -22,7 +21,7 @@ export default async function Signup(props: {
       <form className="flex flex-col min-w-64 max-w-64 mx-auto justify-between">
         <h1 className="text-2xl font-medium">S'inscrire</h1>
         <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-          <FacebookLoginButton />
+          {/* <FacebookLoginButton />
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t"></span>
@@ -32,7 +31,7 @@ export default async function Signup(props: {
                 OU CONTINUEZ AVEC
               </span>
             </div>
-          </div>
+          </div> */}
           <Label htmlFor="email">Email</Label>
           <Input name="email" placeholder="ch'camion@exemple.com" required />
           <Label htmlFor="password">Mot de passe</Label>

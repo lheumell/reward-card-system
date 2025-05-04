@@ -1,15 +1,14 @@
 "use client";
 
 import { Html5Qrcode } from "html5-qrcode";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { redirect } from "next/navigation";
 import Html5QrcodePlugin from "./html5-qrcode-plugin";
+import { Button } from "@/components/ui/button";
 
 export default function AdminPage() {
   const supabase = createClient();
-  const scannerRef = useRef<HTMLDivElement>(null);
-  const html5QrCodeRef = useRef<Html5Qrcode | null>(null);
 
   const [loyaltyId, setLoyaltyId] = useState<string | null>(null);
   const [profile, setProfile] = useState<any>(null);
@@ -43,6 +42,10 @@ export default function AdminPage() {
       setProfile(data);
     }
   };
+
+  const detectProfileManually = useCallback(() => {
+    if (loyaltyId) fetchProfile(loyaltyId);
+  }, []);
 
   const handleResetPoints = async () => {
     if (!profile) return;
@@ -93,11 +96,19 @@ export default function AdminPage() {
         verbose={false}
         qrCodeErrorCallback={undefined}
       />
+      <div className="mt-4">
+        <p>Inserer un ID</p>
+        <input
+          className="border border-2"
+          type="text"
+          onChange={(e) => setLoyaltyId(e.target.value)}
+        />
+        <Button className="ml-4" onClick={() => detectProfileManually()}>
+          Recuperer l'id
+        </Button>
+      </div>
       {profile && (
         <div className="bg-gray-100 p-4 rounded">
-          <p>
-            <strong>Nom :</strong> {profile.firstname} {profile.lastname}
-          </p>
           <p>
             <strong>Points actuels :</strong> {profile.fidelity_points || 0}
           </p>

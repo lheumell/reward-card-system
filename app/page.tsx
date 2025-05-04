@@ -1,6 +1,6 @@
 "use client";
 import MyAccount from "./my-account/page";
 
-export default async function Home() {
+export default function Home() {
   return <MyAccount />;
 }
