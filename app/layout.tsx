@@ -8,7 +8,7 @@ import Link from "next/link";
 import "./globals.css";
 import Footer from "@/components/footer";
 import { createClient } from "@/utils/supabase/server";
-import logo from "@/assets/logo.jpeg";
+import logo from "@/assets/chcamion.svg";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -50,11 +50,12 @@ export default async function RootLayout({
           <main className="min-h-screen flex flex-col items-center">
             <div className="flex-1 w-full flex flex-col items-center">
               <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-                <div className="w-full flex justify-between items-center p-3 px-5 text-sm">
+                <div className="w-full flex justify-between items-center p-3 pl-1 px-5 text-sm">
                   <div className="flex gap-5 items-center font-semibold">
                     <div className="flex items-center gap-2">
-                      <Image src={logo} alt="logo" width={24} height={24} />
-                      <Link href={"/"}>A Ch'camion</Link>
+                      <Link href={"/"}>
+                        <Image src={logo} alt="logo" width={150} />
+                      </Link>
                     </div>
                     {(user?.id === LEO || user?.id === WINNIE) && (
                       <Link href={"/admin"}>Admin</Link>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import CallToActionFB from "@/components/call-to-action-fb";
 import Image from "next/image";
 import close from "@/assets/close.svg";
+import logo from "@/assets/chcamion_logo.svg";
 import popcorn from "@/assets/popcorn.png";
 import Panel from "@/components/ui/Panel";
 import Caroussel from "@/components/ui/caroussel";
@@ -149,11 +150,26 @@ export default function MyAccount() {
           onClick={() => setOpenPanel(true)}
           className="relative bg-gradient-to-r from-violet-200 from-5% via-violet-50 via-50% to-95% to-teal-100  animate-gradient-x rounded-xl bg-green-100 shadow-xl border border-2 border-neutral-200 cursor-pointer mt-8 flex flex-col items-center p-4"
         >
-          <QRCodeSVG
-            className="p-2 bg-white rounded-xl"
-            value={profile?.loyalty_id || "0"}
-            size={100}
-          />
+          <div className="grid grid-cols-3 gap-4 w-full">
+            <div>
+              <span className="font-bold text-lg text-neutral-900">
+                Ch'camion
+              </span>
+            </div>
+
+            <QRCodeSVG
+              className="p-2 bg-white rounded-xl col-start-3"
+              value={profile?.loyalty_id || "0"}
+              size={100}
+            />
+            <Image src={logo.src} alt="logo" width={54} height={54} />
+            <div className="flex items-center gap-2 col-start-2">
+              <span className="font-bold text-sm text-neutral-900 row-start-2">
+                {profile?.loyalty_id}
+              </span>
+            </div>
+          </div>
+
           {/* <p className="absolute bottom-2 left-[50%] -translate-x-[50%] text-sm text-neutral-900">
             {profile?.loyalty_id || "0"}
           </p> */}

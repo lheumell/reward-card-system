@@ -1,11 +1,13 @@
 "use client";
 
-import { Html5Qrcode } from "html5-qrcode";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import euro from "@/assets/euro.png";
+import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
 import { redirect } from "next/navigation";
 import Html5QrcodePlugin from "./html5-qrcode-plugin";
 import { Button } from "@/components/ui/button";
+import Panel from "@/components/ui/Panel";
 
 export default function AdminPage() {
   const supabase = createClient();
@@ -43,9 +45,9 @@ export default function AdminPage() {
     }
   };
 
-  const detectProfileManually = useCallback(() => {
+  const detectProfileManually = () => {
     if (loyaltyId) fetchProfile(loyaltyId);
-  }, []);
+  };
 
   const handleResetPoints = async () => {
     if (!profile) return;
@@ -65,7 +67,8 @@ export default function AdminPage() {
   const handleAddPoints = async () => {
     if (!profile) return;
 
-    const newPoints = (profile.fidelity_points || 0) + pointsToAdd;
+    const newPoints =
+      (profile.fidelity_points || 0) + Math.floor(pointsToAdd / 8);
 
     const res = await supabase
       .from("profiles")
@@ -101,29 +104,34 @@ export default function AdminPage() {
         <input
           className="border border-2"
           type="text"
+          value={loyaltyId || ""}
           onChange={(e) => setLoyaltyId(e.target.value)}
         />
-        <Button className="ml-4" onClick={() => detectProfileManually()}>
+        <Button className="ml-4" onClick={detectProfileManually}>
           Recuperer l'id
         </Button>
       </div>
       {profile && (
-        <div className="bg-gray-100 p-4 rounded">
+        <Panel isOpen={!!profile} onClose={() => setProfile(null)}>
           <p>
             <strong>Points actuels :</strong> {profile.fidelity_points || 0}
           </p>
 
           <div className="mt-4">
-            <input
-              type="number"
-              placeholder="Points à ajouter"
-              value={pointsToAdd}
-              onChange={(e) => setPointsToAdd(parseInt(e.target.value))}
-              className="border p-2 rounded w-full"
-            />
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                placeholder="Points à ajouter"
+                value={pointsToAdd}
+                onChange={(e) => setPointsToAdd(parseInt(e.target.value))}
+                className="border p-2 rounded"
+              />
+              <Image src={euro.src} width={24} height={24} alt={"euro"} />
+            </div>
+
             <button
               onClick={handleAddPoints}
-              className="bg-green-600 text-white px-4 py-2 rounded mt-2"
+              className="bg-green-600 text-white px-4 py-2 rounded mt-2 mr-2"
             >
               ✅ Ajouter des points
             </button>
@@ -134,7 +142,7 @@ export default function AdminPage() {
               Réinitialiser les points
             </button>
           </div>
-        </div>
+        </Panel>
       )}
     </div>
   );
