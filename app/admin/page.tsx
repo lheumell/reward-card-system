@@ -83,23 +83,15 @@ export default function AdminPage() {
     console.log(res);
   };
 
-  const onNewScanResult = (decodedText: any, decodedResult: any) => {
+  const onNewScanResult = (decodedText: any) => {
     fetchProfile(decodedText);
     setLoyaltyId(decodedText);
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl mb-4">Scanner une carte fidélité</h1>
-      <Html5QrcodePlugin
-        fps={10}
-        qrbox={500}
-        disableFlip={false}
-        qrCodeSuccessCallback={onNewScanResult}
-        verbose={false}
-        qrCodeErrorCallback={undefined}
-      />
-      <div className="mt-4">
+    <div className="h-screen">
+      <Html5QrcodePlugin onScanSuccess={onNewScanResult} />
+      {/* <div className="mt-4">
         <p>Inserer un ID</p>
         <input
           className="border border-2"
@@ -110,7 +102,7 @@ export default function AdminPage() {
         <Button className="ml-4" onClick={detectProfileManually}>
           Recuperer l'id
         </Button>
-      </div>
+      </div> */}
       {profile && (
         <Panel isOpen={!!profile} onClose={() => setProfile(null)}>
           <p>
