@@ -27,7 +27,7 @@ const QrScannerCustom = ({
             videoConstraints: {
               facingMode: "environment", // caméra arrière
               width: { ideal: window.innerWidth },
-              height: { ideal: 800 },
+              height: { ideal: window.innerHeight },
             },
           },
           (decodedText) => {
@@ -53,7 +53,7 @@ const QrScannerCustom = ({
 
   return (
     <div>
-      <div id={qrRegionId} style={{ width: "100%", height: "100vh" }} />
+      <div id={qrRegionId} style={{ width: "100vw", height: "100vh" }} />
 
       {/* 🎯 Overlay custom */}
       <div
