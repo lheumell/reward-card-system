@@ -113,7 +113,7 @@ export default function AdminPage() {
           <div className="mt-4">
             <div className="flex flex-row items-center justify-center gap-2">
               <span
-                className="bold border-2 cursor-pointer rounded-full px-2"
+                className="bold border-2 bg-white cursor-pointer rounded-full px-2"
                 onClick={() =>
                   setPointsToAdd((prev) => (prev > 0 ? prev - 1 : prev))
                 }
@@ -129,7 +129,7 @@ export default function AdminPage() {
                   textAlign: "center",
                   fontSize: "32px",
                   fontWeight: "bold",
-                  backgroundColor: "#1A67de0d",
+                  backgroundColor: "white",
                   color: "#e3bb19",
                   // background: `url(${euro.src}) no-repeat right`,
                 }}
@@ -140,7 +140,7 @@ export default function AdminPage() {
                 className="border p-2 rounded border p-2 rounded bg-red-600"
               />
               <span
-                className="bold border-2 cursor-pointer rounded-full px-2"
+                className="bold border-2 bg-white cursor-pointer rounded-full px-2"
                 onClick={() => setPointsToAdd((prev) => prev + 1)}
               >
                 +
@@ -150,13 +150,13 @@ export default function AdminPage() {
             <div className="flex flex-col items-center justify-center gap-2">
               <button
                 onClick={handleAddPoints}
-                className="w-[150px] border border-green-900 text-green-900 px-4 py-2 rounded-lg mt-2"
+                className="w-[150px] border border-green-900 bg-white text-green-900 px-4 py-2 rounded-lg mt-2"
               >
                 Ajouter
               </button>{" "}
               <button
                 onClick={handleResetPoints}
-                className=" underline text-red-900 px-4 py-2 rounded-lg mt-1"
+                className=" underline text-red-900 px-4 rounded-lg mt-1"
               >
                 Réinitialiser les points
               </button>

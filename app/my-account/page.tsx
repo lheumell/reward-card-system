@@ -77,7 +77,7 @@ export default function MyAccount() {
   }
   return (
     <div className="p-4 relative">
-      <div className="bg-gradient-to-r from-blue-200 via-violet-200 via-purple-200 to-teal-100 bg-[length:200%_200%] animate-gradient-x  p-5 mx-8 my-4 rounded-2xl">
+      <div className="bg-gradient-to-r from-blue-200 via-violet-200 via-purple-200 to-teal-100 bg-[length:200%_200%] animate-gradient-x  p-5 mx-4 my-4 rounded-2xl">
         <h1 className="text-xl font-bold mb-4">Mes points</h1>
         {profile && (
           <div className="md:w-3/4 m-auto">
@@ -139,7 +139,7 @@ export default function MyAccount() {
         )}
       </div>
       <div className="px-4">
-        <h1 className="text-xl font-bold mt-8 mb-4">Ma carte</h1>
+        <h1 className="text-xl font-bold mt-8 mb-2">Ma carte</h1>
         {/* <Barcode
           value={profile?.loyalty_id || "0"}
           handleOpenPanel={() => setOpenPanel(true)}
@@ -148,7 +148,7 @@ export default function MyAccount() {
         /> */}
         <div
           onClick={() => setOpenPanel(true)}
-          className="relative bg-gradient-to-r from-violet-200 from-5% via-violet-50 via-50% to-95% to-teal-100  animate-gradient-x rounded-xl bg-green-100 shadow-xl border border-2 border-neutral-200 cursor-pointer mt-8 flex flex-col items-center p-4"
+          className="relative bg-gradient-to-r from-violet-200 from-5% via-violet-50 via-50% to-95% to-teal-100  animate-gradient-x rounded-xl bg-green-100 shadow-xl border border-2 border-neutral-200 cursor-pointer mt-4 flex flex-col items-center p-4"
         >
           <div className="grid grid-cols-3 gap-4 w-full">
             <div>

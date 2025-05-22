@@ -45,7 +45,7 @@ export default function BarCode({
     >
       <QRCodeSVG
         value={value}
-        className="rounded-xl bg-white shadow-xl border border-2 border-neutral-200 cursor-pointer p-4 w-fit"
+        className="my-8 rounded-3xl bg-white border border-2 border-neutral-900 cursor-pointer p-4 w-fit"
         size={width}
         title={value}
       />
