@@ -27,7 +27,7 @@ const QrScannerCustom = ({
             videoConstraints: {
               facingMode: "environment", // caméra arrière
               width: { ideal: window.innerWidth },
-              height: { ideal: window.innerHeight },
+              height: { ideal: 800 },
             },
           },
           (decodedText) => {
