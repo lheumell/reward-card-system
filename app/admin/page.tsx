@@ -83,14 +83,14 @@ export default function AdminPage() {
     console.log(res);
   };
 
-  const onNewScanResult = (decodedText: any) => {
-    fetchProfile(decodedText);
-    setLoyaltyId(decodedText);
+  const onNewScanResult = (text: string) => {
+    fetchProfile(text);
+    setLoyaltyId(text);
   };
 
   return (
     <div className="h-screen">
-      <Html5QrcodePlugin onScanSuccess={onNewScanResult} />
+      <Html5QrcodePlugin onSuccess={onNewScanResult} />
       {/* <div className="mt-4">
         <p>Inserer un ID</p>
         <input
@@ -105,34 +105,62 @@ export default function AdminPage() {
       </div> */}
       {profile && (
         <Panel isOpen={!!profile} onClose={() => setProfile(null)}>
-          <p>
+          <h2 className="text-lg">Combien le client a payé ? </h2>
+          {/* <p>
             <strong>Points actuels :</strong> {profile.fidelity_points || 0}
-          </p>
+          </p> */}
 
           <div className="mt-4">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-row items-center justify-center gap-2">
+              <span
+                className="bold border-2 cursor-pointer rounded-full px-2"
+                onClick={() =>
+                  setPointsToAdd((prev) => (prev > 0 ? prev - 1 : prev))
+                }
+              >
+                -
+              </span>
               <input
+                style={{
+                  width: "200px",
+                  border: "1px solid black",
+                  borderRadius: "12px",
+                  padding: "4px",
+                  textAlign: "center",
+                  fontSize: "32px",
+                  fontWeight: "bold",
+                  backgroundColor: "#1A67de0d",
+                  color: "#e3bb19",
+                  // background: `url(${euro.src}) no-repeat right`,
+                }}
                 type="number"
-                placeholder="Points à ajouter"
+                // placeholder="Points à ajouter"
                 value={pointsToAdd}
                 onChange={(e) => setPointsToAdd(parseInt(e.target.value))}
-                className="border p-2 rounded"
+                className="border p-2 rounded border p-2 rounded bg-red-600"
               />
-              <Image src={euro.src} width={24} height={24} alt={"euro"} />
+              <span
+                className="bold border-2 cursor-pointer rounded-full px-2"
+                onClick={() => setPointsToAdd((prev) => prev + 1)}
+              >
+                +
+              </span>
             </div>
-
-            <button
-              onClick={handleAddPoints}
-              className="bg-green-600 text-white px-4 py-2 rounded mt-2 mr-2"
-            >
-              ✅ Ajouter des points
-            </button>
-            <button
-              onClick={handleResetPoints}
-              className="bg-red-600 text-white px-4 py-2 rounded mt-2"
-            >
-              Réinitialiser les points
-            </button>
+            {/* <p className="text-center mt-2">EURO</p> */}
+            <div className="flex flex-col items-center justify-center gap-2">
+              <button
+                onClick={handleAddPoints}
+                className="w-[150px] border border-green-900 text-green-900 px-4 py-2 rounded-lg mt-2"
+              >
+                Ajouter
+              </button>{" "}
+              <button
+                onClick={handleResetPoints}
+                className=" underline text-red-900 px-4 py-2 rounded-lg mt-1"
+              >
+                Réinitialiser les points
+              </button>
+            </div>
           </div>
         </Panel>
       )}

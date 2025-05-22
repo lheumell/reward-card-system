@@ -1,133 +1,76 @@
-// QrScanner.tsx
 import { Html5Qrcode } from "html5-qrcode";
 import { useEffect, useRef } from "react";
 
-type Props = {
-  onScanSuccess: (decodedText: string) => void;
-  onScanError?: (errorMessage: string) => void;
-};
-
-const QrScanner = ({ onScanSuccess, onScanError }: Props) => {
-  const qrCodeRegionId = "qr-reader";
-  const html5QrCodeRef = useRef<Html5Qrcode | null>(null);
+const QrScannerCustom = ({
+  onSuccess,
+}: {
+  onSuccess: (text: string) => void;
+}) => {
+  const qrRegionId = "qr-reader";
+  const scannerRef = useRef<Html5Qrcode | null>(null);
 
   useEffect(() => {
-    const startScanner = async () => {
+    const start = async () => {
       try {
-        await navigator.mediaDevices.getUserMedia({ video: true });
-
         const devices = await Html5Qrcode.getCameras();
-        if (!devices || devices.length === 0) {
-          throw new Error("Aucune caméra détectée");
-        }
+        if (devices.length === 0) throw new Error("Pas de caméra");
 
-        const backCamera = devices.find((d) =>
-          d.label.toLowerCase().includes("back")
-        );
+        const cameraId = devices[0].id;
+        const scanner = new Html5Qrcode(qrRegionId);
+        scannerRef.current = scanner;
 
-        const cameraId = backCamera?.id || devices[0].id;
-
-        const qrCodeScanner = new Html5Qrcode(qrCodeRegionId);
-        html5QrCodeRef.current = qrCodeScanner;
-
-        await qrCodeScanner.start(
+        await scanner.start(
           cameraId,
           {
             fps: 10,
-            qrbox: { width: 250, height: 250 },
+            // qrbox: { width: 250, height: 250 }, // carré de scan,
+            videoConstraints: {
+              facingMode: "environment", // caméra arrière
+              width: { ideal: window.innerWidth },
+              height: { ideal: window.innerHeight },
+            },
           },
           (decodedText) => {
-            onScanSuccess(decodedText);
+            onSuccess(decodedText);
           },
-          (errorMessage) => {
-            if (onScanError) onScanError(errorMessage);
+          (err) => {
+            // Tu peux afficher les erreurs ici si tu veux
           }
         );
-      } catch (err) {
-        console.error("Erreur initialisation caméra :", err);
+      } catch (e) {
+        console.error("Erreur QR:", e);
       }
     };
 
-    startScanner();
+    start();
 
     return () => {
-      html5QrCodeRef.current
-        ?.stop()
-        .then(() => html5QrCodeRef.current?.clear())
-        .catch((err) => console.error("Erreur arrêt du scanner :", err));
+      scannerRef.current?.stop().then(() => {
+        scannerRef.current?.clear();
+      });
     };
   }, []);
 
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        position: "relative",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div id={qrCodeRegionId} style={{ width: "100%", height: "100%" }} />
+    <div>
+      <div id={qrRegionId} style={{ width: "100%", height: "100vh" }} />
 
-      {/* Coin haut gauche */}
+      {/* 🎯 Overlay custom */}
       <div
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          width: 30,
-          height: 30,
-          borderTop: "4px solid #00FF00",
-          borderLeft: "4px solid #00FF00",
-          // borderTopLeftRadius: 5,
-        }}
-      />
-
-      {/* Coin haut droit */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          width: 30,
-          height: 30,
-          borderTop: "4px solid #00FF00",
-          borderRight: "4px solid #00FF00",
-          // borderTopRightRadius: 5,
-        }}
-      />
-
-      {/* Coin bas gauche */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          width: 30,
-          height: 30,
-          borderBottom: "4px solid #00FF00",
-          borderLeft: "4px solid #00FF00",
-          // borderBottomLeftRadius: 5,
-        }}
-      />
-
-      {/* Coin bas droit */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          right: 0,
-          width: 30,
-          height: 30,
-          borderBottom: "4px solid #00FF00",
-          borderRight: "4px solid #00FF00",
-          // borderBottomRightRadius: 5,
+          top: "50%",
+          left: "50%",
+          width: 250,
+          height: 250,
+          transform: "translate(-50%, -50%)",
+          border: "2px solid black",
+          borderRadius: "12px",
+          boxShadow: "0 0 0 9999px rgba(0,0,0,0.4)",
         }}
       />
     </div>
   );
 };
 
-export default QrScanner;
+export default QrScannerCustom;

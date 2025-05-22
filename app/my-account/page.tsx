@@ -93,7 +93,7 @@ export default function MyAccount() {
                     className={`inline-flex justify-center items-center italic rounded-xl border border-2 border-purple-200 w-full h-8`}
                   >
                     {index + 1 === NB_FIDELITY_POINTS &&
-                      profile.fidelity_points === NB_FIDELITY_POINTS && (
+                      profile.fidelity_points >= NB_FIDELITY_POINTS && (
                         <Image
                           src={popcorn}
                           alt="popcorn"

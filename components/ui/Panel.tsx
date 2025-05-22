@@ -20,6 +20,7 @@ const Panel: React.FC<PanelProps> = ({ children, isOpen, onClose }) => {
       <style jsx>{`
         .panel-overlay {
           position: fixed;
+          padding: 8px;
           top: 0;
           left: 0;
           width: 100%;
@@ -33,7 +34,7 @@ const Panel: React.FC<PanelProps> = ({ children, isOpen, onClose }) => {
         .panel-content {
           background: white;
           padding: 20px;
-          border-radius: 8px;
+          border-radius: 12px;
           position: relative;
           max-width: 500px;
           width: 100%;
