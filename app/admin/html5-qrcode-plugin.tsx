@@ -53,7 +53,16 @@ const QrScannerCustom = ({
 
   return (
     <div>
-      <div id={qrRegionId} style={{ width: "100vw", height: "100vh" }} />
+      <div
+        id={qrRegionId}
+        style={{
+          position: "fixed",
+          inset: 0,
+          width: "100vw",
+          height: "100dvh",
+          overflow: "hidden",
+        }}
+      />
 
       {/* 🎯 Overlay custom */}
       <div

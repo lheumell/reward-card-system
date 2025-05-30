@@ -67,3 +67,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+#qr-reader video {
+  width: 100vw !important;
+  height: 100dvh !important;
+  object-fit: cover !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
